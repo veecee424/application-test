@@ -50,7 +50,7 @@ const validateTeamInput = async (req, res, next) => {
 
 }
 
-const validateFixtureInput = (req, res, next) => {
+const validateFixtureInput = async (req, res, next) => {
 
     try {
         const schema = joi.object().keys({
@@ -88,11 +88,11 @@ const validateFixtureInput = (req, res, next) => {
             
         })
     
-       const {error} = schema.validate(req.body);
+       const {error} = await schema.validate(req.body);
     
        if (error) {
     
-           let main_error = error.details;
+           let main_error = await error.details;
     
            main_error.forEach(err => {
     
@@ -112,6 +112,59 @@ const validateFixtureInput = (req, res, next) => {
 }
 
 
+const validateRegisterationInput = async (req, res, next) => {
+
+    try {
+        const schema = joi.object().keys({
+            username: joi.string().trim().required().min(5).messages({
+    
+                'string.base': 'username must be a string',
+                'string.empty': 'username is required, cannot be empty',
+                'string.min': 'username cannot be less than 6 characters',
+                
+            }),
+    
+            password: joi.string().required().min(6).messages({
+    
+                'string.base': 'password must be a string',
+                'string.empty': 'password is required, cannot be empty',
+                'string.min': 'password cannot be less than 6 characters',
+            
+            }),
+    
+            email: joi.string().email().required().messages({
+    
+                'string.base': 'email must be a valid email',
+                'string.empty': 'email is required, cannot be empty'
+            
+            })
+            
+        })
+    
+       const {error} = await schema.validate(req.body);
+    
+       if (error) {
+    
+           let main_error = await error.details;
+    
+           main_error.forEach(err => {
+    
+              throw err.message
+    
+           })
+    
+       } 
+    
+           next();
+    }
+
+    catch(err) {
+
+        return failure(res, err)
+    }
+
+}
 
 
-module.exports = { validateFixtureInput, validateTeamInput}
+
+module.exports = { validateFixtureInput, validateTeamInput, validateRegisterationInput}

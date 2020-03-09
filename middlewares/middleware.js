@@ -1,5 +1,6 @@
 const Team = require('../Models/team')
 const Fixture = require('../Models/fixture')
+const jwt = require('jsonwebtoken')
 
 
 const checkIfTeamsExist = async (req, res, next) => {
@@ -55,6 +56,55 @@ const checkMatchStatus = async (req, res, next) => {
 
 }
 
+const verifyToken  = async (req, res, next) => {
+    
+
+    try {
+
+        const token = await req.header('auth-token');
+    
+    if(token) {
+        const verified = await jwt.verify(token, 'jwtsecret')
+        req.user = verified;
+        return next()
+    }
+
+        throw 'access denied'
+        
+    }
+    catch(err) {
+        return res.json(err)
+    }
+    
+}
+
+const isAdmin  = async (req, res, next) => {
+    
+
+    try {
+
+        const token = await req.header('auth-token');
+    
+    if(token) {
+        const verified = await jwt.verify(token, 'jwtsecret') // retrieves the token and coverts it into the payload
+        req.user = verified;
+        if(req.user.user.is_admin == true) {
+          return next()
+        }
+        throw 'Unauthorized access, you are not an admin'
+    }
+
+        throw 'access denied, invalid token'
+        
+    }
+    catch(err) {
+        return res.json(err)
+    }
+    
+}
+
+
+
 module.exports = {
-    checkIfTeamsExist, checkMatchStatus
+    checkIfTeamsExist, checkMatchStatus, verifyToken, isAdmin
 }

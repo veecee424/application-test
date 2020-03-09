@@ -6,24 +6,31 @@ const {
     viewFixture, 
     updateFixtureStatus, 
     updateFixture, 
-    deleteFixture 
+    deleteFixture,
+    viewCompletedFixtures,
+    viewPendingFixtures
 } = require('../controllers/fixtureController')
-const { checkIfTeamsExist, checkMatchStatus } = require('../middlewares/middleware')
+const { checkIfTeamsExist, checkMatchStatus, verifyToken, isAdmin } = require('../middlewares/middleware')
 
 const { validateFixtureInput } = require('../validation/validation')
 
 
 
-  router.post('/create', validateFixtureInput, checkIfTeamsExist, checkMatchStatus, createFixture);
 
-  router.get('/show', viewAllFixtures);
+  router.post('/create', verifyToken, isAdmin, validateFixtureInput, checkIfTeamsExist, checkMatchStatus, createFixture);
+
+  router.get('/show', verifyToken, isAdmin, viewAllFixtures);
+
+  router.get('/completed', viewCompletedFixtures)
+
+  router.get('/pending', viewPendingFixtures)
   
   router.get('/:fixture_id', viewFixture);
    
-  router.put('/:fixture_id', validateFixtureInput, updateFixture);
+  router.put('/:fixture_id', verifyToken, isAdmin, validateFixtureInput, updateFixture);
   
-  router.put('/status/:fixture_id', updateFixtureStatus);
+  router.put('/status/:fixture_id', verifyToken, isAdmin, updateFixtureStatus);
   
-  router.delete('/:fixture_id', deleteFixture)
+  router.delete('/:fixture_id', verifyToken, isAdmin, deleteFixture)
 
   module.exports = router;

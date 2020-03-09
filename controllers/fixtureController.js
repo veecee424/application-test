@@ -38,6 +38,38 @@ const viewAllFixtures = async (req, res) => {
 
 }
 
+
+const viewCompletedFixtures = async (req, res) => {
+
+    try {
+        let completedFixtures = await Fixture.find({status: 'completed'});
+        if (completedFixtures) {
+            return requestOK(completedFixtures, res)
+        }
+        throw 'no completed fixture found'
+    }
+    catch (err) {
+        return fileNotFound(res, err)
+    }
+
+}
+
+const viewPendingFixtures = async (req, res) => {
+
+    try {
+        let pendingFixtures = await Fixture.find({status: 'pending'});
+        if (pendingFixtures) {
+            return requestOK(pendingFixtures, res)
+        }
+        throw 'no pending fixture found'
+    }
+    catch (err) {
+        return fileNotFound(res, err)
+    }
+
+}
+
+
 const viewFixture = async (req, res) => {
     let { fixture_id } = req.params;
 
@@ -67,7 +99,6 @@ const updateFixtureStatus = async (req, res) => {
         let update = await Fixture.findOne({_id: fixture_id, status: 'pending'});
 
         let completeStatus = 'COMPLETED'.toLowerCase();
-        let pendingStatus = 'PENDING'.toLowerCase();
 
         if (status !== completeStatus) {
             throw 'match status can either be pending or completed'
@@ -135,6 +166,6 @@ const deleteFixture = async (req, res) => {
 
 module.exports = {
 
-    createFixture, viewAllFixtures, viewFixture, updateFixtureStatus, deleteFixture, updateFixture
+    createFixture, viewAllFixtures, viewFixture, updateFixtureStatus, deleteFixture, updateFixture, viewCompletedFixtures, viewPendingFixtures
 
 }

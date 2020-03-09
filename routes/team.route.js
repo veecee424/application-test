@@ -9,18 +9,19 @@ const {
 } = require('../controllers/teamController')
 
 const { validateTeamInput } = require('../validation/validation')
+const { verifyToken, isAdmin } = require('../middlewares/middleware')
 
 
 
-router.post('/create', validateTeamInput, createTeam); 
+router.post('/create',verifyToken, isAdmin, validateTeamInput, createTeam); 
 
 router.get('/show', viewAllTeams);
 
 router.get('/:team_id', viewTeam);
 
-router.put('/:team_id', validateTeamInput, editTeam);
+router.put('/:team_id',verifyToken, isAdmin, validateTeamInput, editTeam);
 
-router.delete('/:team_id', deleteTeam);
+router.delete('/:team_id', verifyToken, isAdmin, deleteTeam);
 
 
 module.exports = router;
