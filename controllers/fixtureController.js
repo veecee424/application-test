@@ -1,7 +1,7 @@
 const Fixture = require('../Models/fixture')
 const { requestOK, createSuccess, fileNotFound, requestTimedOut } = require('../responder/response')
-
-
+const dotenv = require('dotenv')
+dotenv.config()
 
 
 const createFixture = async (req, res) => {
@@ -13,8 +13,10 @@ const createFixture = async (req, res) => {
         let createdFixture = await Fixture.create({home_team, away_team, venue , time });
 
         if (createdFixture) {
+
            return createSuccess(createdFixture, res)
         }
+
         throw 'something went wrong'
     }
     catch (err) {

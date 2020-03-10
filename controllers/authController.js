@@ -15,7 +15,7 @@ const { failure } = require('../responder/response')
 
        let existingUsername = await User.findOne({username: req.body.username});
        if(existingUsername) {
-           throw 'username has ben taken'
+           throw 'username has been taken'
        }
 
        let existingEmail = await User.findOne({email: req.body.email});
@@ -52,6 +52,7 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({username: username});
 
         if (!user) {
+            console.log(user)
             throw 'sorry, username does not exist'
         }
 

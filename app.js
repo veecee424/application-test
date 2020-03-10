@@ -10,8 +10,9 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 
+
 // Database connection
-mongoose.connect("mongodb://localhost:27017/assessment", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // configure body-parser
 app.use(bodyParser.urlencoded({extended: true}))
@@ -20,12 +21,9 @@ app.use(express.json())
 
 
 
-
 app.use('/team', teamRoute)
 app.use('/fixture', fixtureRoute)
 app.use(authRoute)
-
-
 
 
 
