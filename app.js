@@ -24,5 +24,9 @@ app.use('/team', teamRoute)
 app.use('/fixture', fixtureRoute)
 app.use(authRoute)
 
+app.get('/', (req, res) => {
+    res.send('Welcome to my API')
+})
+
 
 module.exports = app;
