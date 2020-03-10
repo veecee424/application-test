@@ -1,6 +1,7 @@
 const User = require('../Models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { failure } = require('../responder/response')
 
 
 
@@ -37,8 +38,7 @@ const jwt = require('jsonwebtoken')
     }
 
     catch(err) {
-        console.log(err)
-        return res.send(err)
+        return failure(res, err)
     }
     
 }
