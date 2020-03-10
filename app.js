@@ -26,9 +26,6 @@ app.use('/fixture', fixtureRoute)
 app.use(authRoute)
 
 
-app.listen(3000, () => {
-    console.log("Running on 3k")
-})
 
 
 
