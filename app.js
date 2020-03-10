@@ -20,11 +20,9 @@ app.use(bodyParser.json())
 app.use(express.json())
 
 
-
 app.use('/team', teamRoute)
 app.use('/fixture', fixtureRoute)
 app.use(authRoute)
-
 
 
 module.exports = app;
