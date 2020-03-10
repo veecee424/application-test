@@ -13,7 +13,7 @@ const { verifyToken, isAdmin } = require('../middlewares/middleware')
 
 
 
-router.post('/create',verifyToken, isAdmin, validateTeamInput, createTeam); 
+router.post('/create', verifyToken, isAdmin, validateTeamInput, createTeam); 
 
 router.get('/show', viewAllTeams);
 

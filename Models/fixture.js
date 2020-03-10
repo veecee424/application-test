@@ -30,6 +30,11 @@ const fixtureSchema = new mongoose.Schema({
         required: true,
         lowercase: true
     },
+    score: {
+        type: String,
+        required: false,
+        default: '0-0'
+    },
     date_created: {
         type: Date,
         default: Date.now()

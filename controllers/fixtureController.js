@@ -49,6 +49,7 @@ const viewCompletedFixtures = async (req, res) => {
         throw 'no completed fixture found'
     }
     catch (err) {
+        console.log(completedFixtures)
         return fileNotFound(res, err)
     }
 
@@ -91,7 +92,7 @@ const viewFixture = async (req, res) => {
 const updateFixtureStatus = async (req, res) => {
 
     let { fixture_id } = req.params;
-    let { status } = req.body;
+    let { status, score } = req.body;
 
 
     try {
@@ -106,6 +107,7 @@ const updateFixtureStatus = async (req, res) => {
 
         if(update && update.date_deleted === null) {
             update.status = status;
+            update.score = score;
             update.save();
             return requestOK(update, res);
         }
@@ -148,11 +150,11 @@ const deleteFixture = async (req, res) => {
     
     try {
 
-        let fixture = await Fixture.findOne({_id: fixture_id, date_deleted: null});
+        let fixture = await Fixture.findOne({_id: fixture_id});
         if(fixture && fixture.date_deleted === null) {
             fixture.date_deleted = Date.now();
             fixture.save();
-            return requestOK('fixture successfully deleted', res, '')
+            return requestOK('Done', res, 'fixture successfully deleted')
         }
 
         throw 'fixture not found'

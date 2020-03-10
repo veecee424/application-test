@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const teamRoute = require('./routes/team.route')
 const fixtureRoute = require('./routes/fixture.route')
 const authRoute = require('./routes/auth.route')
+const dotenv = require('dotenv');
+dotenv.config()
 
 
 // Database connection
@@ -24,8 +26,10 @@ app.use('/fixture', fixtureRoute)
 app.use(authRoute)
 
 
-
-
 app.listen(3000, () => {
     console.log("Running on 3k")
 })
+
+
+
+module.exports = app;

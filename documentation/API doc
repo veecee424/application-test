@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "57ddff57-32c0-4ac5-b9b1-e7987833298c",
+		"name": "backend dev test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/team/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjpmYWxzZSwiX2lkIjoiNWU2NTliYWQ2MTMxODUzMWI0ZTliNTk0IiwidXNlcm5hbWUiOiJ1c2VyMSIsInBhc3N3b3JkIjoiJDJhJDEwJFFNR1pMakp6SkRQcVN4VHYwbC9sOHVSSFpjUG02UGFPekdLZVFiRmEuMkhlcWlvcTFlcVNPIiwiZW1haWwiOiJ1c2VyMUB5YWhvby5jb20iLCJfX3YiOjB9LCJpYXQiOjE1ODM3MzM0NDZ9._TRj6FGWZMb_gKTjQ_1nhLO1J2pP2qiKVOY5035jh3M",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "team_name",
+							"value": "Manchester city",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "team_alias",
+							"value": "the blues",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": " ",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/team/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"team",
+						"create"
+					]
+				},
+				"description": "This post route creates a new team. Note that only a logged in admin can create a post by providing authorization token in the auth-token field of the request header."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/team/show",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/team/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"team",
+						"show"
+					]
+				},
+				"description": "Shows all existing teams. Nothing is required, and every logged in user has access to this route."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/team/:team_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/team/:team_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"team",
+						":team_id"
+					],
+					"variable": [
+						{
+							"key": "team_id",
+							"value": "5e65d91f02dccd34686f0821",
+							"description": "required"
+						}
+					]
+				},
+				"description": "Shows a single team whose '_id' is provided. Note that 'team_id' is required"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/team/:team_id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjpmYWxzZSwiX2lkIjoiNWU2NTliYWQ2MTMxODUzMWI0ZTliNTk0IiwidXNlcm5hbWUiOiJ1c2VyMSIsInBhc3N3b3JkIjoiJDJhJDEwJFFNR1pMakp6SkRQcVN4VHYwbC9sOHVSSFpjUG02UGFPekdLZVFiRmEuMkhlcWlvcTFlcVNPIiwiZW1haWwiOiJ1c2VyMUB5YWhvby5jb20iLCJfX3YiOjB9LCJpYXQiOjE1ODM3MzM0NDZ9._TRj6FGWZMb_gKTjQ_1nhLO1J2pP2qiKVOY5035jh3M",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "team_alias",
+							"value": "Th",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "team_name",
+							"value": "Ch",
+							"description": "required",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/team/:team_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"team",
+						":team_id"
+					],
+					"variable": [
+						{
+							"key": "team_id",
+							"value": "5e623f63881d8c1890c1b36d",
+							"description": "required"
+						}
+					]
+				},
+				"description": "put route Edits and updates a team. Note that auth-token is required here, and only admins can access this route by providing a token in the auth-token field of the request header."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/team/:team_id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MTQ0OX0.oGOYOSqqHbmfVQeUFegyb3hsMn5Dis72LpI1IfsGStc",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/team/:team_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"team",
+						":team_id"
+					],
+					"variable": [
+						{
+							"key": "team_id",
+							"value": "5e6385f4a5a8e23e60d4a04f",
+							"description": "required"
+						}
+					]
+				},
+				"description": "delete route which Deletes a team. Note that this route is protected and can only be accessed by an admin who has provided a valid token in the auth-token section of the request header. Team _id should be provided as well."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MTQ0OX0.oGOYOSqqHbmfVQeUFegyb3hsMn5Dis72LpI1IfsGStc",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "home_team",
+							"value": "Leicester",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "away_team",
+							"value": "watford",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "venue",
+							"value": "king power stadium",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "time",
+							"value": "7pm",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "pending",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/fixture/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						"create"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Route to create a new fixture. Only admins can access this route with their token in the auth-token field of the request header. all fields are required."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/show",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjpmYWxzZSwiX2lkIjoiNWU2NTliYWQ2MTMxODUzMWI0ZTliNTk0IiwidXNlcm5hbWUiOiJ1c2VyMSIsInBhc3N3b3JkIjoiJDJhJDEwJFFNR1pMakp6SkRQcVN4VHYwbC9sOHVSSFpjUG02UGFPekdLZVFiRmEuMkhlcWlvcTFlcVNPIiwiZW1haWwiOiJ1c2VyMUB5YWhvby5jb20iLCJfX3YiOjB9LCJpYXQiOjE1ODM3NTIzNDl9.55Xpi-xkVD56ig54X8cvXVeBeJISqPZvxKe0Bzgx9kM",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/fixture/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						"show"
+					]
+				},
+				"description": "Shows all fixtures whether pending or completed. Only admins can access this route by including their authentication token in the auth-token field in the header."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/:fixture_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/fixture/:fixture_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						":fixture_id"
+					],
+					"variable": [
+						{
+							"key": "fixture_id",
+							"value": "5e6623b23602e532445502df",
+							"description": "required"
+						}
+					]
+				},
+				"description": "Route to view a particular fixture. fixture_id is required and everyone has access to this route."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/:fixture_id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MzYyNH0.A3dBVmzq843ZIRdAKP2QzrDhS7gwKS74bIi8dKipflw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "home_team",
+							"value": "leicester",
+							"type": "text"
+						},
+						{
+							"key": "away_team",
+							"value": "watford",
+							"type": "text"
+						},
+						{
+							"key": "venue",
+							"value": "king power stadium",
+							"type": "text"
+						},
+						{
+							"key": "time",
+							"value": "5pm",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/fixture/:fixture_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						":fixture_id"
+					],
+					"variable": [
+						{
+							"key": "fixture_id",
+							"value": "5e6623b23602e532445502df"
+						}
+					]
+				},
+				"description": "put request to edit a fixture. This is a protected route and can only be accessed by admins who provide their authorization token (generated after login) in the auth-token field of the header. NB - All fields are required"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/status/:fixture_id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MzYyNH0.A3dBVmzq843ZIRdAKP2QzrDhS7gwKS74bIi8dKipflw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "completed",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/fixture/status/:fixture_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						"status",
+						":fixture_id"
+					],
+					"variable": [
+						{
+							"key": "fixture_id",
+							"value": "5e6623b23602e532445502df"
+						}
+					]
+				},
+				"description": "Put route to change status of a match from 'pending' to 'completed'. Only logged in admins are allowed access to this route after providing a token in the auth-token section of the request header."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "user2@yahoo.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "post route for user registration. All field are required."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "post route for user login. Username and password is required for user login."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/completed",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjVlNjU3NjZhYjJmMGZhMmM3OGQ0MGU5YSIsInVzZXJuYW1lIjoidmFsIiwicGFzc3dvcmQiOiIkMmEkMTAkWXZ5U1BsM0toZXl4a0lJc1l3MklUdWRNTWs3V2FCaEtiMFNMem5HU3pwLy5rTWhWaWF2UFciLCJlbWFpbCI6InZlZWNlZTQyNEB5YWhvby5jb20iLCJfX3YiOjB9LCJpYXQiOjE1ODM3MDc3NjR9.UscHk_W9bg99tP42Bm3OtPZcSW-pSO940Kibn9OOwvM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/fixture/completed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						"completed"
+					]
+				},
+				"description": "get route which shows all completed fixtures. "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/pending",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MTQ0OX0.oGOYOSqqHbmfVQeUFegyb3hsMn5Dis72LpI1IfsGStc",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "home_team",
+							"value": "Leicester",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "away_team",
+							"value": "watford",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "venue",
+							"value": "king power stadium",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "time",
+							"value": "7pm",
+							"description": "required",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "pending",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/fixture/pending",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						"pending"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "get route which shows all pending fixtures"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/fixture/:fixture_id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlzX2FkbWluIjp0cnVlLCJfaWQiOiI1ZTY1OWJjZTkxN2VkMjNiNmMwNDdjOTgiLCJ1c2VybmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmEkMTAkTGdrRlRpNW1GZGcySmlDbnBoQzF3dVhZZHI0S3Evb0NIN0Mybk01dXE1QURmSkZLWGFManEiLCJlbWFpbCI6IkFkbWluQHlhaG9vLmNvbSIsIl9fdiI6MH0sImlhdCI6MTU4Mzc1MzYyNH0.A3dBVmzq843ZIRdAKP2QzrDhS7gwKS74bIi8dKipflw",
+						"description": "required",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/fixture/:fixture_id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fixture",
+						":fixture_id"
+					],
+					"variable": [
+						{
+							"key": "fixture_id",
+							"value": "5e66236c3602e532445502de",
+							"description": "required"
+						}
+					]
+				},
+				"description": "delete route to remove a fixture. This route can only be accessed by a logged in admin. Note that the authorization token should be provided in the auth-token field of the request header."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
