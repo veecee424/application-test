@@ -8,7 +8,6 @@ const adminToken = process.env.ADMIN_TOKEN;
 
 
 
-
 describe(" team routes ", () => {
 
     test('should create a new team', async () => {
@@ -16,11 +15,22 @@ describe(" team routes ", () => {
         .post('/team/create')
         .set('auth-token', adminToken)
         .send({
-            team_name: 'aston vila',
+            team_name: 'aston villa',
             team_alias: 'villa'
         })
         fixture_id = await response.body.data._id;
         expect(response.statusCode).toBe(201)
+    })
+
+    test('should throw an error that team exists', async () => {
+        const response = await request(app)
+        .post('/team/create')
+        .set('auth-token', adminToken)
+        .send({
+            team_name: 'aston villa',
+            team_alias: 'villa'
+        })
+        expect(response.statusCode).toBe(400)
     })
 
     test("show all existing teams", async () => {

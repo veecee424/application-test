@@ -1,6 +1,7 @@
 const Team = require('../Models/team')
 const Fixture = require('../Models/fixture')
 const jwt = require('jsonwebtoken')
+const { failure } = require('../responder/response')
 
 
 const checkIfTeamsExist = async (req, res, next) => {
@@ -26,7 +27,7 @@ const checkIfTeamsExist = async (req, res, next) => {
         next()
     }
     catch (err) {
-        return res.json(err)
+        return failure(res, err)
     }
     
 };
@@ -51,7 +52,7 @@ const checkMatchStatus = async (req, res, next) => {
         next();
     }
     catch (err) {
-        return res.json(err)
+        return failure(res, err)
     }
 
 }
@@ -73,7 +74,7 @@ const verifyToken  = async (req, res, next) => {
         
     }
     catch(err) {
-        return res.json(err)
+        return failure(res, err)
     }
     
 }
@@ -98,13 +99,29 @@ const isAdmin  = async (req, res, next) => {
         
     }
     catch(err) {
-        return res.json(err)
+        return failure(res, err)
     }
     
+}
+
+const checkIfTeamHasBeenCreated = async (req, res, next) => {
+    let { team_name } = req.body;
+
+    try {
+        const existingTeam = await Team.findOne({team_name: team_name});
+        if(existingTeam && existingTeam.date_deleted === null) {
+            throw 'team already exists'
+        }
+        return next();
+
+    }
+    catch (err) {
+        return failure(res, err)
+    }
 }
 
 
 
 module.exports = {
-    checkIfTeamsExist, checkMatchStatus, verifyToken, isAdmin
+    checkIfTeamsExist, checkMatchStatus, verifyToken, isAdmin, checkIfTeamHasBeenCreated
 }

@@ -12,7 +12,7 @@ dotenv.config()
 
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || process.env.DATABASE_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
+mongoose.connect(process.env.DATABASE_URI || process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 // configure body-parser
 app.use(bodyParser.urlencoded({extended: true}))
@@ -30,3 +30,8 @@ app.get('/', (req, res) => {
 
 
 module.exports = app;
+
+
+
+
+

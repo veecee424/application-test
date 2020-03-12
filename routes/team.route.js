@@ -9,11 +9,11 @@ const {
 } = require('../controllers/teamController')
 
 const { validateTeamInput } = require('../validation/validation')
-const { verifyToken, isAdmin } = require('../middlewares/middleware')
+const { verifyToken, isAdmin, checkIfTeamHasBeenCreated } = require('../middlewares/middleware')
 
 
 
-router.post('/create', verifyToken, isAdmin, validateTeamInput, createTeam); 
+router.post('/create', verifyToken, isAdmin, validateTeamInput, checkIfTeamHasBeenCreated, createTeam); 
 
 router.get('/show', viewAllTeams);
 

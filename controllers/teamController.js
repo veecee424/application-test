@@ -1,32 +1,23 @@
 const Team = require('../Models/team')
 const { requestOK, createSuccess, fileNotFound } = require('../responder/response')
+const { failure } = require('../responder/response')
 
 const createTeam = async (req, res) => {
     
     let { team_name, team_alias } = req.body;
     
     try {
-        // Check if team exists
-        let team = await Team.findOne({team_name: team_name});
-        
-        //If team isn't created yet (ie) doesn't exist
-        if(team === null || team.date_deleted !== null) {
 
-        //create and return team
         let createdTeam = await Team.create({team_name, team_alias});
 
-            if (createdTeam) {
-              return createSuccess(createdTeam, res, 'Team successfully created')
-            }
-
+        if(createdTeam) {
+            return createSuccess(createdTeam, res, 'Team successfully created')
         }
-        //else, throw an error
-         throw 'team already exists'
+        throw 'Something went wrong'
 
     } 
     catch (err) {
-    
-        return fileNotFound(res, err)
+        return failure(res, err)
 
     }  
 }

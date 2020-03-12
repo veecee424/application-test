@@ -7,19 +7,33 @@ const adminToken = process.env.ADMIN_TOKEN;
 
 describe('fixture routes', () => {
 
-    test('create a fixture', async () => {
+    test('should create a fixture', async () => {
         const response = await request(app)
         .post('/fixture/create')
         .set('auth-token', adminToken)
         .send({
             home_team: 'derby county',
-            away_team: 'barcelona',
-            venue: 'camp nou',
+            away_team: 'swansea',
+            venue: 'rams arena',
             time: '12pm'
         })
         fixture_id = await response.body.data._id;
         expect(response.statusCode).toBe(201)
         expect(response.body.data).toHaveProperty('_id');
+    })
+
+    test('should return an error that the fixture already exists', async () => {
+        const response = await request(app)
+        .post('/fixture/create')
+        .set('auth-token', adminToken)
+        .send({
+            home_team: 'derby county',
+            away_team: 'swansea',
+            venue: 'rams arena',
+            time: '12pm'
+        })
+        expect(response.statusCode).toBe(400)
+        
     })
     
     test('show all fixtures', async () => {
@@ -53,7 +67,7 @@ describe('fixture routes', () => {
         .set('auth-token', adminToken)
         .send({
             home_team: 'derby',
-            away_team: 'barca',
+            away_team: 'swans',
             venue: 'nou camp',
             time: '2pm'
         })
