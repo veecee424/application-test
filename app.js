@@ -9,8 +9,6 @@ const authRoute = require('./routes/auth.route')
 const dotenv = require('dotenv');
 dotenv.config()
 
-
-
 // Database connection
 mongoose.connect(process.env.DATABASE_URI || process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
@@ -24,10 +22,26 @@ app.use('/team', teamRoute)
 app.use('/fixture', fixtureRoute)
 app.use(authRoute)
 
+
 app.get('/', (req, res) => {
-    res.send('Welcome to my API')
+    return res.send('Welcome to my API')
 })
 
+app.get("*", (req, res) => {
+    return res.send('Invalid URL')
+})
+
+app.post("*", (req, res) => {
+    return res.send('Invalid URL')
+})
+
+app.put("*", (req, res) => {
+    return res.send('Invalid URL')
+})
+
+app.delete("*", (req, res) => {
+    return res.send('Invalid URL')
+})
 
 module.exports = app;
 

@@ -2,6 +2,9 @@ const User = require('../Models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { failure } = require('../responder/response')
+const dotenv = require('dotenv')
+dotenv.config()
+
 
 
 
@@ -48,7 +51,7 @@ const loginUser = async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        //check if email or username exists
+        
         const user = await User.findOne({username: username});
 
         if (!user) {
@@ -62,7 +65,7 @@ const loginUser = async (req, res) => {
             throw 'invalid password'
         }
         
-        const token = jwt.sign({user}, 'jwtsecret');
+        const token = jwt.sign({user}, process.env.JWT_SECRET);
         return res.header('auth-token', token).json(token)
     }
 

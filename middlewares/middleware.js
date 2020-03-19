@@ -2,6 +2,8 @@ const Team = require('../Models/team')
 const Fixture = require('../Models/fixture')
 const jwt = require('jsonwebtoken')
 const { failure } = require('../responder/response')
+const dotenv = require('dotenv')
+dotenv.config()
 
 
 const checkIfTeamsExist = async (req, res, next) => {
@@ -65,7 +67,7 @@ const verifyToken  = async (req, res, next) => {
         const token = await req.header('auth-token');
     
     if(token) {
-        const verified = await jwt.verify(token, 'jwtsecret')
+        const verified = await jwt.verify(token, process.env.JWT_SECRET)
         req.user = verified;
         return next()
     }
@@ -84,10 +86,10 @@ const isAdmin  = async (req, res, next) => {
 
     try {
 
-        const token = await req.header('auth-token');
+        const token = await req.header('auth-token'); 
     
     if(token) {
-        const verified = await jwt.verify(token, 'jwtsecret') // retrieves the token and coverts it into the payload
+        const verified = await jwt.verify(token, process.env.JWT_SECRET) // retrieves the token and coverts it into the payload
         req.user = verified;
         if(req.user.user.is_admin == true) {
           return next()
