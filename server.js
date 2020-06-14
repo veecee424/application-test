@@ -4,6 +4,6 @@ dotenv.config()
 
 
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Running on 3k")
+app.listen(process.env.PORT || 5000, () => {
+    console.log("Running on 5k")
 })

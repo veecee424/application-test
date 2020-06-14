@@ -51,7 +51,6 @@ const viewCompletedFixtures = async (req, res) => {
         throw 'no completed fixture found'
     }
     catch (err) {
-        console.log(completedFixtures)
         return fileNotFound(res, err)
     }
 

@@ -8,7 +8,6 @@ dotenv.config()
 
 
 
-
  const registerUser = async (req, res) => {
 
     let salt = await bcrypt.genSalt(10);
@@ -33,6 +32,7 @@ dotenv.config()
         email: req.body.email
     })
 
+
         const createdUser = await user.save();
         if(createdUser) {
            return res.send(createdUser)
@@ -55,7 +55,6 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({username: username});
 
         if (!user) {
-            console.log(user)
             throw 'sorry, username does not exist'
         }
 
