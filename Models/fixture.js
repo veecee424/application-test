@@ -35,14 +35,12 @@ const fixtureSchema = new mongoose.Schema({
         required: false,
         default: '0-0'
     },
-    date_created: {
-        type: Date,
-        default: Date.now()
-    },
     date_deleted: {
         type: Date,
         default: null
     }
+}, {
+    timestamps: true
 })
 
 const Fixture = mongoose.model('fixture', fixtureSchema);
