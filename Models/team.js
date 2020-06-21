@@ -13,15 +13,12 @@ const teamSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    date_created: {
-        type: Date,
-        required: true,
-        default: Date.now()
-    },
     date_deleted: {
         type: Date,
         default: null
     }
+}, {
+    timestamps: true
 })
 
 const Team = mongoose.model('team', teamSchema);
