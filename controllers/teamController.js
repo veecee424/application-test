@@ -1,25 +1,21 @@
 const Team = require('../Models/team')
-const { requestOK, createSuccess, fileNotFound } = require('../responder/response')
-const { failure } = require('../responder/response')
+const { requestOK, createSuccess, fileNotFound, failure} = require('../responder/response')
 
 const createTeam = async (req, res) => {
     
-    let { team_name, team_alias } = req.body;
-    
     try {
 
-        let createdTeam = await Team.create({team_name, team_alias});
+        let createdTeam = await Team.create(req.body);
 
         if(createdTeam) {
             return createSuccess(createdTeam, res, 'Team successfully created')
         }
-        throw 'Something went wrong'
+        throw 'Unable to create team'
 
     } 
     catch (err) {
         return failure(res, err)
-
-    }  
+    }
 }
 
 const viewAllTeams = async (req, res) => {
@@ -41,10 +37,9 @@ const viewAllTeams = async (req, res) => {
 }
 
 const viewTeam = async (req, res) => {
-    let { team_id } = req.params;
 
     try {
-        let foundTeam = await Team.findById({_id: team_id});
+        let foundTeam = await Team.findById({_id: req.params.team_id});
         
         if (foundTeam === null || foundTeam.date_deleted !== null) {
             throw 'Sorry, team not found.'
@@ -58,25 +53,30 @@ const viewTeam = async (req, res) => {
 
 const editTeam = async (req, res) => {
 
-    let { team_id } = req.params;
+    const providedUpdateFields = Object.keys(req.body)
+    const validUpdateFields = ['team_name', 'team_alias']
+    const isValid = providedUpdateFields.every((field) => {
+        return validUpdateFields.includes(field)
+    }) 
 
-    let { team_name, team_alias } = req.body;
+    if (!isValid) {
+        return failure(res, 'Bad update parameter(s)')
+    }
+
+    let { team_id } = req.params;
 
     try {
 
-        let team = await Team.findOne({ _id: team_id});
-        if (team !== null || team.date_deleted === null) {
-            team.team_name = team_name;
-            team.team_alias = team_alias;
-            team.save()
+        let team = await Team.findOneAndUpdate({ _id: team_id}, req.body, {new: true});
+        if (team) {
             return requestOK(team, res, 'team info successfully updated')
         }
 
-        throw 'team not found'
+        throw 'Unable to edit team'
 
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, err)
     }
 }
 
@@ -87,16 +87,16 @@ const deleteTeam = async (req, res) => {
         let teamToDelete = await Team.findById({ _id: team_id });
 
     if (teamToDelete === null || teamToDelete.date_deleted !== null) {
-        throw 'team not found'
+        return fileNotFound(res, 'team not found')
     }
 
     teamToDelete.date_deleted = Date.now();
-    teamToDelete.save();
+    await teamToDelete.save();
     return requestOK('Done', res, 'team successfully deleted')
 
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
 }
 
