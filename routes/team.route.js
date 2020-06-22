@@ -19,7 +19,7 @@ router.get('/show', viewAllTeams);
 
 router.get('/:team_id', viewTeam);
 
-router.put('/:team_id',verifyToken, isAdmin, validateTeamInput, editTeam);
+router.patch('/:team_id',verifyToken, isAdmin, validateTeamInput, editTeam);
 
 router.delete('/:team_id', verifyToken, isAdmin, deleteTeam);
 
