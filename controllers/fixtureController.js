@@ -1,5 +1,5 @@
 const Fixture = require('../Models/fixture')
-const { requestOK, createSuccess, fileNotFound, requestTimedOut } = require('../responder/response')
+const { requestOK, createSuccess, fileNotFound, requestTimedOut, failure, badRequest } = require('../responder/response')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -13,14 +13,12 @@ const createFixture = async (req, res) => {
         let createdFixture = await Fixture.create({home_team, away_team, venue , time });
 
         if (createdFixture) {
-
            return createSuccess(createdFixture, res)
         }
-
-        throw 'something went wrong'
+        return badRequest(res, 'Unable to create fixture')
     }
     catch (err) {
-        return requestTimedOut(res, err)
+        return failure(res, 'Something went wrong')
     }
 
 }
@@ -32,12 +30,11 @@ const viewAllFixtures = async (req, res) => {
         if (allFixtures) {
             return requestOK(allFixtures, res)
         }
-        throw 'no fixture found'
+        return fileNotFound(res, 'Unable to find fixtures')
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
-
 }
 
 
@@ -48,44 +45,38 @@ const viewCompletedFixtures = async (req, res) => {
         if (completedFixtures) {
             return requestOK(completedFixtures, res)
         }
-        throw 'no completed fixture found'
+        return fileNotFound(res, 'no completed fixture found')
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
-
 }
 
 const viewPendingFixtures = async (req, res) => {
-
     try {
         let pendingFixtures = await Fixture.find({status: 'pending'});
         if (pendingFixtures) {
             return requestOK(pendingFixtures, res)
         }
-        throw 'no pending fixture found'
+        return fileNotFound(res, 'no pending fixture found')
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
-
 }
-
 
 const viewFixture = async (req, res) => {
     let { fixture_id } = req.params;
-
     try {
 
         let fixture = await Fixture.findOne({_id: fixture_id});
         if (fixture && fixture.date_deleted === null) {
             return requestOK(fixture, res)
         }
-        throw 'no fixture found'
-
+        return fileNotFound(res, 'fixture not found')
     }
     catch(err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
 
 }
@@ -94,7 +85,6 @@ const updateFixtureStatus = async (req, res) => {
 
     let { fixture_id } = req.params;
     let { status, score } = req.body;
-
 
     try {
 
@@ -124,24 +114,13 @@ const updateFixtureStatus = async (req, res) => {
 
 const updateFixture = async (req, res) => {
     let { fixture_id } = req.params;
-    let { home_team, away_team, venue, time } = req.body;
 
     try {
-        let update = await Fixture.findOne({_id: fixture_id, date_deleted: null});
-        if(update && update.date_deleted === null) {
-            update.home_team = home_team;
-            update.away_team = away_team;
-            update.venue = venue;
-            update.time = time;
-            update.save();
-            return requestOK(update, res)
-        }
-        
-        throw 'Fixture not found'
+        let update = await Fixture.findOneAndUpdate({_id: fixture_id, date_deleted: null}, req.body, {new: true});
+        return requestOK(update, res, 'Updated successfully')
     }
-
     catch (err) {
-        return fileNotFound(res, err)
+      return failure(res, 'Unable to update fixture, Something went wrong')
     }
 }
 
@@ -158,11 +137,11 @@ const deleteFixture = async (req, res) => {
             return requestOK('Done', res, 'fixture successfully deleted')
         }
 
-        throw 'fixture not found'
+        return  fileNotFound(res, 'fixture not found')
     }
 
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong')
     }
 }
 

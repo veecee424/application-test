@@ -5,7 +5,7 @@ let HTTP_codes = {
     NotFound: 404,
     TimeOut: 408,
     BadRequest: 400,
-
+    InternalError: 500
 }
 
 let responder = {
@@ -71,7 +71,7 @@ let responder = {
             status: "error",
             message
         }
-        return res.status(HTTP_codes.BadRequest).send(response);
+        return res.status(HTTP_codes.InternalError).send(response);
     },
 }
 

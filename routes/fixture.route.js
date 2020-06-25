@@ -16,7 +16,6 @@ const { validateFixtureInput } = require('../validation/validation')
 
 
 
-
   router.post('/create', verifyToken, isAdmin, validateFixtureInput, checkIfTeamsExist, checkMatchStatus, createFixture);
 
   router.get('/show', verifyToken, isAdmin, viewAllFixtures);
@@ -27,7 +26,7 @@ const { validateFixtureInput } = require('../validation/validation')
   
   router.get('/:fixture_id', viewFixture);
    
-  router.put('/:fixture_id', verifyToken, isAdmin, validateFixtureInput, updateFixture);
+  router.patch('/:fixture_id', verifyToken, isAdmin, checkIfTeamsExist, updateFixture);
   
   router.put('/status/:fixture_id', verifyToken, isAdmin, updateFixtureStatus);
   
