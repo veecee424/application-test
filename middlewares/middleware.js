@@ -1,7 +1,7 @@
 const Team = require('../Models/team')
 const Fixture = require('../Models/fixture')
 const jwt = require('jsonwebtoken')
-const { failure } = require('../responder/response')
+const { failure, badRequest } = require('../responder/response')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -94,14 +94,14 @@ const isAdmin  = async (req, res, next) => {
         if(req.user.user.is_admin == true) {
           return next()
         }
-        throw 'Unauthorized access, you are not an admin'
+        return badRequest(res, 'Unauthorized access, you are not an admin')
     }
 
         throw 'access denied, invalid token'
         
     }
     catch(err) {
-        return failure(res, err)
+        return failure(res, 'Something went wrong')
     }
     
 }
