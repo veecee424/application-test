@@ -1,5 +1,5 @@
 const Team = require('../Models/team')
-const { requestOK, createSuccess, fileNotFound, failure} = require('../responder/response')
+const { requestOK, createSuccess, fileNotFound, failure, badRequest} = require('../responder/response')
 
 const createTeam = async (req, res) => {
     
@@ -10,11 +10,11 @@ const createTeam = async (req, res) => {
         if(createdTeam) {
             return createSuccess(createdTeam, res, 'Team successfully created')
         }
-        throw 'Unable to create team'
+        return badRequest(res, 'Unable to create team')
 
     } 
     catch (err) {
-        return failure(res, err)
+        return failure(res, 'Something went wrong while trying to create team')
     }
 }
 
@@ -25,13 +25,13 @@ const viewAllTeams = async (req, res) => {
       let allTeams = await Team.find({date_deleted: null});
         
         if(allTeams[0] === undefined) {
-            throw 'team not found'
+            return fileNotFound(res, 'team not found')
         }
 
         return requestOK(allTeams, res)
     }
     catch (err) {
-        return fileNotFound(res, err)
+        return failure(res, 'Something went wrong while trying to fetch all teasm')
     }
 
 }
@@ -42,7 +42,7 @@ const viewTeam = async (req, res) => {
         let foundTeam = await Team.findById({_id: req.params.team_id});
         
         if (foundTeam === null || foundTeam.date_deleted !== null) {
-            throw 'Sorry, team not found.'
+            return fileNotFound(res, 'Sorry, team not found.')
         }
         return requestOK(foundTeam, res)
     }
@@ -60,7 +60,7 @@ const editTeam = async (req, res) => {
     }) 
 
     if (!isValid) {
-        return failure(res, 'Bad update parameter(s)')
+        return badRequest(res, 'Bad update parameter(s)')
     }
 
     let { team_id } = req.params;
@@ -72,11 +72,11 @@ const editTeam = async (req, res) => {
             return requestOK(team, res, 'team info successfully updated')
         }
 
-        throw 'Unable to edit team'
+        return badRequest(res, 'Unable to edit team')
 
     }
     catch (err) {
-        return failure(res, err)
+        return failure(res, 'Something went wrong while updating team')
     }
 }
 
