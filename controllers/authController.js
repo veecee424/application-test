@@ -10,9 +10,6 @@ dotenv.config()
 
  const registerUser = async (req, res) => {
 
-    let salt = await bcrypt.genSalt(10);
-    let hashedPassword = await bcrypt.hash(req.body.password, salt);
-
     try {
 
        let existingUsername = await User.findOne({username: req.body.username});
@@ -28,7 +25,7 @@ dotenv.config()
 
        const user = new User({
         username: req.body.username,
-        password: hashedPassword,
+        password: req.body.password,
         email: req.body.email
     })
 
