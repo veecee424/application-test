@@ -1,7 +1,7 @@
 const User = require('../Models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { failure, requestOK } = require('../responder/response')
+const { failure, requestOK, badRequest } = require('../responder/response')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -14,12 +14,12 @@ dotenv.config()
 
        let existingUsername = await User.findOne({username: req.body.username});
        if(existingUsername) {
-           throw 'username has been taken'
+           return badRequest(res, 'username has been taken')
        }
 
        let existingEmail = await User.findOne({email: req.body.email});
        if(existingEmail) {
-        throw 'email is already in use'
+        return badRequest(res, 'email is already in use')
        }
 
 
@@ -34,11 +34,11 @@ dotenv.config()
         if(createdUser) {
            return res.send(createdUser)
         }
-        throw 'Sorry, could not create new user'
+        return badRequest(res, 'Unable to create new user')
     }
 
     catch(err) {
-        return failure(res, err)
+        return failure(res, 'Sorry, something went wrong while we tried to create user')
     }
     
 }
@@ -52,13 +52,13 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({username: username});
 
         if (!user) {
-            throw 'sorry, username does not exist'
+            return badRequest(res, 'sorry, username does not exist')
         }
 
         const validPassword = await bcrypt.compare(password, user.password)
 
         if(!validPassword) {
-            throw 'invalid password'
+            return badRequest(res, 'invalid password')
         }
         
         const token = await jwt.sign({'_id': user._id}, process.env.JWT_SECRET);
@@ -66,7 +66,7 @@ const loginUser = async (req, res) => {
     }
 
     catch(err) {
-       return res.send(err)
+       return failure(res, 'Something went wrong while trying to log in user')
     }
  
 
