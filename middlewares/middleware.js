@@ -1,4 +1,5 @@
 const Team = require('../Models/team')
+const User = require('../Models/user')
 const Fixture = require('../Models/fixture')
 const jwt = require('jsonwebtoken')
 const { failure, badRequest } = require('../responder/response')
@@ -68,7 +69,7 @@ const verifyToken  = async (req, res, next) => {
     
     if(token) {
         const verified = await jwt.verify(token, process.env.JWT_SECRET)
-        req.user = verified;
+        req.user = await User.findById(verified._id)
         return next()
     }
 
@@ -90,8 +91,9 @@ const isAdmin  = async (req, res, next) => {
     
     if(token) {
         const verified = await jwt.verify(token, process.env.JWT_SECRET) // retrieves the token and coverts it into the payload
-        req.user = verified;
-        if(req.user.user.is_admin == true) {
+        req.user = await User.findById(verified._id);
+        console.log(req.user)
+        if(req.user.is_admin == true) {
           return next()
         }
         return badRequest(res, 'Unauthorized access, you are not an admin')
